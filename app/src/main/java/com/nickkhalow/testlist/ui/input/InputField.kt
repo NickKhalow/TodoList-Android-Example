@@ -1,0 +1,36 @@
+package com.nickkhalow.testlist.ui.input
+
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.textfield.TextInputEditText
+import com.nickkhalow.testlist.R
+import com.nickkhalow.testlist.domain.input.ItemInputField
+import com.nickkhalow.testlist.domain.input.storage.ItemInfoStorage
+
+class InputField(
+    private val itemInputField: ItemInputField,
+    private val itemInfoStorage: ItemInfoStorage,
+    activity: AppCompatActivity
+) {
+
+    private val editText: TextInputEditText
+    private val submitButton: Button
+
+    init {
+        editText = activity.findViewById(R.id.input_field_text)
+        submitButton = activity.findViewById(R.id.submit_button)
+
+        editText.setText(itemInfoStorage.text())
+        editText.addTextChangedListener {
+            itemInputField.update(it.toString())
+        }
+        submitButton.setOnClickListener {
+            run {
+                itemInputField.submit()
+                itemInputField.clear()
+                editText.setText(itemInfoStorage.text())
+            }
+        }
+    }
+}
