@@ -7,10 +7,13 @@ import com.google.android.material.textfield.TextInputEditText
 import com.nickkhalow.testlist.R
 import com.nickkhalow.testlist.domain.input.ItemInputField
 import com.nickkhalow.testlist.domain.input.storage.ItemInfoStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class InputField(
     private val itemInputField: ItemInputField,
     private val itemInfoStorage: ItemInfoStorage,
+    private val scope: CoroutineScope,
     activity: AppCompatActivity
 ) {
 
@@ -26,7 +29,7 @@ class InputField(
             itemInputField.update(it.toString())
         }
         submitButton.setOnClickListener {
-            run {
+            scope.launch {
                 itemInputField.submit()
                 itemInputField.clear()
                 editText.setText(itemInfoStorage.text())

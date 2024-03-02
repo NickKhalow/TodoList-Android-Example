@@ -1,10 +1,10 @@
 package com.nickkhalow.testlist.domain.input
 
+import com.nickkhalow.testlist.domain.async.list.AsyncTodoList
 import com.nickkhalow.testlist.domain.input.storage.ItemInfoStorage
-import com.nickkhalow.testlist.domain.list.TodoList
 
 class DefaultItemInputField(
-    private val todoList: TodoList,
+    private val todoList: AsyncTodoList,
     private val itemInfoStorage: ItemInfoStorage
 ) : ItemInputField {
     override fun update(text: String) {
@@ -15,7 +15,7 @@ class DefaultItemInputField(
         itemInfoStorage.update(done)
     }
 
-    override fun submit() {
+    override suspend fun submit() {
         val text = itemInfoStorage.text()
         todoList.add(text)
     }

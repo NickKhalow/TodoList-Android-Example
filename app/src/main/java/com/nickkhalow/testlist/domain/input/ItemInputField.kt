@@ -5,7 +5,7 @@ interface ItemInputField {
 
     fun update(done: Boolean)
 
-    fun submit()
+    suspend fun submit()
 
     fun clear()
 }
